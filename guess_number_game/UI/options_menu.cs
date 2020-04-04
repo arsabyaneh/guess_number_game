@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using guess_number_game.engine;
 using guess_number_game.UI.Base;
 
 namespace guess_number_game.UI
@@ -33,16 +34,19 @@ namespace guess_number_game.UI
 
         private void easy_selected(object sender, EventArgs e)
         {
-
+            configuration.current.level = level_type.easy;
+            close();
         }
 
         private void medium_selected(object sender, EventArgs e)
         {
-
+            configuration.current.level = level_type.medium;
+            close();
         }
         private void hard_selected(object sender, EventArgs e)
         {
-
+            configuration.current.level = level_type.hard;
+            close();
         }
         private void back_selected(object sender, EventArgs e)
         {
