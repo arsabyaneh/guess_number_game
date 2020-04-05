@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using guess_number_game.engine;
+using guess_number_game.engine.build;
 using guess_number_game.UI.Base;
 
 namespace guess_number_game.UI
@@ -36,7 +38,37 @@ namespace guess_number_game.UI
 
         private void start_selected(object sender, EventArgs e)
         {
+            ConsoleKey key;
+            Console.ResetColor();
+            Console.Clear();
 
+            configuration.current.save();
+
+            game run_game = director.construct(configuration.current.type);
+
+            do
+            {
+                run_game.start();
+
+                Console.WriteLine("do you want to play again? yes (Y), no (N): ");
+
+                do
+                {
+                    key = Console.ReadKey(true).Key;
+                    if (key == ConsoleKey.Y)
+                        break;
+                    else if (key == ConsoleKey.N)
+                    {
+                        close();
+                        return;
+                    }
+
+                    Console.WriteLine("enter yes (Y), no (N): ");
+                } while (true);
+
+                Console.Clear();
+
+            } while (true);
         }
 
         private void options_selected(object sender, EventArgs e)

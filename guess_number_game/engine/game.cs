@@ -1,0 +1,65 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Threading;
+
+namespace guess_number_game.engine
+{
+    public class game
+    {
+        public player first_player;
+        public player second_player;
+
+        public void start()
+        {
+            bool finished = false;
+
+            first_player.get_ready();
+
+            count_down counter = new count_down();
+            counter.seconds = (int) configuration.current.level;
+            counter.finished += (s, e) => finished = true;
+
+            Thread game_thread = new Thread(run_game);
+
+            counter.start();
+            game_thread.Start();
+
+            while (!finished && game_thread.IsAlive) ;
+
+            if (finished)
+            {
+                if (game_thread.IsAlive)
+                    game_thread.Abort();
+
+                Console.WriteLine("first player won!");
+            }
+            else
+            {
+                counter.stop();
+                Console.WriteLine("second player won!");
+            }
+        }
+
+        public void run_game()
+        {
+            result last_result = result.none;
+            int number;
+
+            do
+            {
+                number = second_player.guess(last_result);
+                last_result = first_player.check(number);
+
+                if (last_result == result.smaller)
+                    Console.WriteLine("enter a smaller number.");
+                else if (last_result == result.larger)
+                    Console.WriteLine("enter a larger number");
+                else
+                    // result.equal
+                    return;
+
+            } while (true);
+        }
+    }
+}

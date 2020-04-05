@@ -4,10 +4,11 @@ using System.Text;
 
 namespace guess_number_game.engine
 {
-    public enum level_type
+    public enum result
     {
-        easy   = 120,
-        medium = 60,
-        hard   = 10
+        equal,
+        larger,
+        smaller,
+        none
     }
 }
