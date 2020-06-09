@@ -1,53 +1,44 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using guess_number_game.engine;
 using guess_number_game.UI.Base;
 
 namespace guess_number_game.UI
 {
     public class options_menu : menu
     {
-        private menu_item easy;
-        private menu_item medium;
-        private menu_item hard;
+        private menu_item type;
+        private menu_item level;
         private menu_item back;
 
         public options_menu()
         {
-            left_top_margin = new point(0, 0);
+            title_text = "Options";
 
-            title_text = "options";
+            type  = new menu_item("game type");
+            level = new menu_item("game level");
+            back  = new menu_item("<-");
 
-            easy   = new menu_item("easy");
-            medium = new menu_item("medium");
-            hard   = new menu_item("hard");
-            back   = new menu_item("<-");
+            type.selected  += type_selected;
+            level.selected += level_selected;
+            back.selected  += back_selected;
 
-            easy.selected   += easy_selected;
-            medium.selected += medium_selected;
-            hard.selected   += hard_selected;
-            back.selected   += back_selected;
+            items.AddRange(new[] { type, level, back });
 
-            items.AddRange(new[] { easy, medium, hard, back });
+            menu_location = new drawing.location(Console.WindowWidth / 2 - padding / 2, Console.WindowHeight / 2 - items.Count);
+            menu_size = new drawing.size(padding + 1, items.Count + 1);
         }
 
-        private void easy_selected(object sender, EventArgs e)
+        private void type_selected(object sender, EventArgs e)
         {
-            configuration.current.level = level_type.easy;
-            close();
+            new game_type_menu().show();
         }
 
-        private void medium_selected(object sender, EventArgs e)
+        private void level_selected(object sender, EventArgs e)
         {
-            configuration.current.level = level_type.medium;
-            close();
+            new game_level_menu().show();
         }
-        private void hard_selected(object sender, EventArgs e)
-        {
-            configuration.current.level = level_type.hard;
-            close();
-        }
+        
         private void back_selected(object sender, EventArgs e)
         {
             close(); 

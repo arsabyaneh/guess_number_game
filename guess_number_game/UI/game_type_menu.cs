@@ -16,9 +16,7 @@ namespace guess_number_game.UI
 
         public game_type_menu()
         {
-            left_top_margin = new point(0, 0);
-
-            title_text = "select the game type";
+            title_text = "Game Types";
 
             computer_vs_user     = new menu_item("computer vs. user");
             user_vs_computer     = new menu_item("user vs. computer");
@@ -33,6 +31,9 @@ namespace guess_number_game.UI
             back.selected                 += back_selected;
 
             items.AddRange(new[] { computer_vs_user, user_vs_computer, computer_vs_computer, user_vs_user, back });
+
+            menu_location = new drawing.location(Console.WindowWidth / 2 - padding / 2, Console.WindowHeight / 2 - items.Count);
+            menu_size = new drawing.size(padding + 1, items.Count + 1);
         }
 
         private void computer_vs_user_selected(object sender, EventArgs e)

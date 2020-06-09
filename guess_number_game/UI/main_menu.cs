@@ -11,29 +11,26 @@ namespace guess_number_game.UI
     {
         private menu_item start;
         private menu_item options;
-        private menu_item type;
-        private menu_item help;
         private menu_item about;
         private menu_item exit;
         public main_menu()
         {
-            left_top_margin = new point(0, 0);
-
             title_text = "Guess Number Game";
 
             start   = new menu_item("start");
             options = new menu_item("options");
-            type    = new menu_item("type");
-            help    = new menu_item("about");
+            about   = new menu_item("about");
             exit    = new menu_item("exit");
 
             start.selected   += start_selected;
             options.selected += options_selected;
-            type.selected    += type_selected;
-            help.selected    += help_selected;
+            about.selected   += about_selected;
             exit.selected    += exit_selected;
 
-            items.AddRange(new[] { start, options, type, help, exit });
+            items.AddRange(new[] { start, options, about, exit });
+
+            menu_location = new drawing.location(Console.WindowWidth / 2 - padding / 2, Console.WindowHeight / 2 - items.Count);
+            menu_size = new drawing.size(padding + 1, items.Count + 1);
         }
 
         private void start_selected(object sender, EventArgs e)
@@ -76,12 +73,7 @@ namespace guess_number_game.UI
             new options_menu().show();
         }
 
-        private void type_selected(object sender, EventArgs e)
-        {
-            new game_type_menu().show();
-        }
-
-        private void help_selected(object sender, EventArgs e)
+        private void about_selected(object sender, EventArgs e)
         {
 
         }

@@ -7,6 +7,7 @@ namespace guess_number_game
     {
         static void Main(string[] args)
         {
+            Console.Title = "Guess Number Game";
             new main_menu().show();
         }
     }
