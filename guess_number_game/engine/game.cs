@@ -22,23 +22,30 @@ namespace guess_number_game.engine
 
             Thread game_thread = new Thread(run_game);
 
+            // there is potential of race condtion in writing to console
             counter.start();
             game_thread.Start();
 
             while (!finished && game_thread.IsAlive) ;
+
+            Console.WriteLine();
 
             if (finished)
             {
                 if (game_thread.IsAlive)
                     game_thread.Abort();
 
+                Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("first player won!");
             }
             else
             {
                 counter.stop();
+                Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine("second player won!");
             }
+
+            Console.ResetColor();
         }
 
         public void run_game()

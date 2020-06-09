@@ -4,6 +4,7 @@ using System.Text;
 using guess_number_game.engine;
 using guess_number_game.engine.build;
 using guess_number_game.UI.Base;
+using guess_number_game.UI.drawing;
 
 namespace guess_number_game.UI
 {
@@ -75,7 +76,26 @@ namespace guess_number_game.UI
 
         private void about_selected(object sender, EventArgs e)
         {
+            Console.ResetColor();
+            Console.Clear();
+            rectangle about_rectangle = new rectangle()
+            {
+                location = new location(Console.WindowWidth / 2 - 15, Console.WindowHeight / 2 - 5),
+                size = new size(30, 7),
+                color = ConsoleColor.Gray,
+                border_color = ConsoleColor.DarkBlue
+            };
+            about_rectangle.draw();
 
+            Console.SetCursorPosition(about_rectangle.location.left + 7, about_rectangle.location.top + about_rectangle.size.height / 2 - 1);
+            Console.WriteLine("Guess Number Game,");
+            Console.CursorLeft = about_rectangle.location.left + 6;
+            Console.WriteLine("All Rights Reserved.");
+            Console.SetCursorPosition(about_rectangle.location.left + 5, about_rectangle.location.top + about_rectangle.size.height / 2 + 3);
+            Console.WriteLine("press a key to go back");
+
+
+            Console.ReadKey(true);
         }
 
         private void exit_selected(object sender, EventArgs e)
